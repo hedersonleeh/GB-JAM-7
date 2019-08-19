@@ -1,0 +1,55 @@
+﻿using UnityEngine;
+[RequireComponent(typeof(Rigidbody2D))]
+public class PlayerController : MonoBehaviour
+{
+
+    [SerializeField] private float moveSpeed;
+    [SerializeField,Range(0,0.35f)] private float smoothDamp;
+    private Vector2 velocity = Vector2.zero;
+    Rigidbody2D rb;
+    private int vertical;
+    private int horizontal;
+    private bool buttom_A;
+    private bool buttom_B;
+    private bool buttom_Start;
+
+
+    public bool Buttom_A { get { return buttom_A; } }
+
+    public bool Buttom_B { get { return buttom_B; } }
+
+    public int Horizontal { get { return horizontal; } }
+
+    public int Vertical { get { return vertical; } }
+
+    public bool Buttom_Start { get { return buttom_Start; } }
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+
+    void FixedUpdate()
+    {
+        Vector2 targetVelocity;
+        targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
+    }
+    void Update()
+    {
+        Inputs();
+    }
+    void Inputs()
+    {
+        horizontal = (int)Input.GetAxisRaw("Horizontal");
+        vertical = (int)Input.GetAxisRaw("Vertical");
+        buttom_A = Input.GetButtonDown("Jump");
+        buttom_B = Input.GetButtonDown("Fire1");
+        buttom_Start = Input.GetButtonDown("Submit");
+    }
+}
