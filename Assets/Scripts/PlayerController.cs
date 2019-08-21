@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool buttom_A;
     private bool buttom_B;
     private bool buttom_Start;
-
+    private bool facingRight = false;
 
     public bool Buttom_A { get { return buttom_A; } }
 
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
         Vector2 targetVelocity;
         targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
+		if( horizontal < 0 && facingRight) Flip();
+		else if(horizontal > 0 && !facingRight) Flip();
     }
     void Update()
     {
@@ -52,4 +54,10 @@ public class PlayerController : MonoBehaviour
         buttom_B = Input.GetButtonDown("Fire1");
         buttom_Start = Input.GetButtonDown("Submit");
     }
+
+	void Flip()
+	{
+		facingRight = !facingRight;
+		transform.localScale = new Vector3(transform.localScale.x*-1,transform.localScale.y,transform.localScale.z);
+	}
 }

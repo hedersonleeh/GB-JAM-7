@@ -27,4 +27,15 @@
         Gigant
 
     };
+
+	public enum BuildingType
+	{
+		BuildersHouse,
+		Castle,
+		House,
+		Gate,
+		Tower,
+		Catapult,
+		Trap
+	};
 }

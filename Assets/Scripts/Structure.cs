@@ -20,11 +20,22 @@ public abstract class Structure
         this.attack = attack;
         this.magic = magic;
     }
+    public Structure(float life, int def, float attack)
+    {
+        this.life = life;
+        this.defense = def;
+        this.attack = attack;
+    }
     public Structure(float life, int def)
     {
         this.life = life;
         this.defense = def;
     }
+
+    protected Structure()
+    {
+    }
+
     public abstract float Damage(float amount);
     public abstract float Healing(float amount);
     public abstract void DisplayStats();
