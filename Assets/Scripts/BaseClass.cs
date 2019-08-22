@@ -3,23 +3,13 @@ using UnityEngine;
 public class BaseClass : Structure
 {
     public string Name { get; private set; }
-    public float Life
-    {
-        get
-        {
-            return Life;
-        }
-        private set
-        {
-           Life = Mathf.Clamp(value, 0, 100);
-        }
-    }
+    public float Life { get; private set; }
     public int Def { get; private set; }
     public float Atk { get; private set; }
     public float AtkSpeed { get; private set; }
     public float Magic { get; private set; }
     public WeaponType Weapon { get; private set; }
-    public BaseClass(string name, float life, int def, float attack, float magic,float atkSpd, WeaponType weapon) : base(life, def, attack, magic)
+    public BaseClass(string name, float life, int def, float attack, float magic, float atkSpd, WeaponType weapon) : base(life, def, attack, magic)
     {
         Name = name == "" ? "Defender" : name;
         Life = life;
@@ -29,7 +19,7 @@ public class BaseClass : Structure
         Weapon = weapon;
         AtkSpeed = atkSpd;
     }
-    public BaseClass(float life, int def, float attack, float magic,float atkSpd, WeaponType weapon) : base(life, def, attack, magic)
+    public BaseClass(float life, int def, float attack, float magic, float atkSpd, WeaponType weapon) : base(life, def, attack, magic)
     {
         Life = life;
         Def = def;
@@ -38,7 +28,7 @@ public class BaseClass : Structure
         Weapon = weapon;
         AtkSpeed = atkSpd;
     }
-    public BaseClass(string name, float life,int def,float attack,float atkSpd,WeaponType weapon) : base(life, def,attack)
+    public BaseClass(string name, float life, int def, float attack, float atkSpd, WeaponType weapon) : base(life, def, attack)
     {
         Life = life;
         Def = def;
@@ -52,28 +42,31 @@ public class BaseClass : Structure
         Def = def;
         Weapon = weapon;
     }
-    public BaseClass(string name, float life, int def,float attack,float atkSpd) : base(life, def,attack)
+    public BaseClass(string name, float life, int def, float attack, float atkSpd) : base(life, def, attack)
     {
         Life = life;
         Def = def;
         Atk = attack;
         AtkSpeed = atkSpd;
     }
-     public BaseClass(string name, float life, int def ) : base(life, def)
+    public BaseClass(string name, float life, int def) : base(life, def)
     {
         Life = life;
         Def = def;
     }
-    public override float Damage(float amount)
+    public override void Damage(float amount, int def)
     {
-        return Life -= amount;
+        float totalDamage;
+        totalDamage = Mathf.Abs((def * 0.4f) - amount);
+        Life -= totalDamage;
     }
-    public override float Healing(float amount)
+   
+    public override void Healing(float amount)
     {
-        return Life += amount;
+       Life += amount;
     }
     public override void DisplayStats()
     {
-        infoScript.Display(this);
+        infoScript.Display(Life,Def,Atk,Magic,AtkSpeed);
     }
 }

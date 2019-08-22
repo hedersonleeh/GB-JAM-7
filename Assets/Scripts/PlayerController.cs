@@ -2,9 +2,9 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField] private Character player;
     [SerializeField] private float moveSpeed;
-    [SerializeField,Range(0,0.35f)] private float smoothDamp;
+    [SerializeField, Range(0, 0.35f)] private float smoothDamp;
     private Vector2 velocity = Vector2.zero;
     Rigidbody2D rb;
     private int vertical;
@@ -36,12 +36,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 targetVelocity;
-        targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
-		if( horizontal < 0 && facingRight) Flip();
-		else if(horizontal > 0 && !facingRight) Flip();
+        if (player.isAlive)
+        {
+            if (!player.Interacting)
+            {
+                Vector2 targetVelocity;
+                targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
+                rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
+                if (horizontal < 0 && facingRight) Flip();
+                else if (horizontal > 0 && !facingRight) Flip();
+            }
+        }
+
     }
+
     void Update()
     {
         Inputs();
@@ -54,10 +62,9 @@ public class PlayerController : MonoBehaviour
         buttom_B = Input.GetButtonDown("Fire1");
         buttom_Start = Input.GetButtonDown("Submit");
     }
-
-	void Flip()
-	{
-		facingRight = !facingRight;
-		transform.localScale = new Vector3(transform.localScale.x*-1,transform.localScale.y,transform.localScale.z);
-	}
+    void Flip()
+    {
+        facingRight = !facingRight;
+        transform.localRotation = facingRight ? Quaternion.Euler(Vector2.up * 180) : Quaternion.Euler(Vector2.zero);
+    }
 }

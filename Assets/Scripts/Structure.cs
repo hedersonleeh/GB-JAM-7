@@ -36,8 +36,8 @@ public abstract class Structure
     {
     }
 
-    public abstract float Damage(float amount);
-    public abstract float Healing(float amount);
+    public abstract void Damage(float amount,int def);
+    public abstract void Healing(float amount);
     public abstract void DisplayStats();
 }
 

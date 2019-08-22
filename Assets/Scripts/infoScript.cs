@@ -15,13 +15,33 @@ public class infoScript : MonoBehaviour {
 	{
 		
 	}
-
-	public static void Display(Structure str)
+	public static void Display(float life,int def,float attack,float magic,float atkSpd)
 	{
-		
-		Debug.Log(str.StrLife);
-		Debug.Log(str.StrAttack);
-		Debug.Log(str.StrDefense);
-		Debug.Log(str.StrMagic);
+		Debug.Log(life);
+		Debug.Log(def);
+		Debug.Log(attack);
+		Debug.Log(magic);
+		Debug.Log(atkSpd);
+	}public static void Display(float life,int def,float attack,float magic)
+	{
+		Debug.Log(life);
+		Debug.Log(def);
+		Debug.Log(attack);
+		Debug.Log(magic);
+	}
+	public static void Display(float life,int def)
+	{
+		Debug.Log(life);
+		Debug.Log(def);
 	}
 }
+
+
+
+
+
+
+
+
+
+
