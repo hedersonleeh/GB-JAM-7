@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
 
 {
     public Character character;
+    
     Rigidbody2D rb;
     [SerializeField] WeaponType types;
     [SerializeField] float lifeTime = 2f;
@@ -24,21 +25,28 @@ public class Weapon : MonoBehaviour
                 {
                     if (lifeTime <= 0)
                     {
-						Destroy(gameObject);
+                        Destroy(gameObject);
                     }
                     else
                     {
+                        if (rb.position.y >= -.25f)
                         {
-                            rb.gravityScale = .3f;
-                            if (!once)
-                            {
-                                Debug.Log("pass");
-                                once = true;
-                                rb.AddForce(new Vector2(character.transform.right.x * -speed * 10 * Time.deltaTime, Vector2.up.y * 10 * speed * Time.deltaTime));
-                            }
-                            lifeTime -= Time.deltaTime;
+                            if (rb.velocity.y > 0)
+                                transform.rotation = Quaternion.Euler(0, 0, -45);
+                            else if (rb.velocity.y < 0)
+                                transform.rotation = Quaternion.Euler(0, 0, 45);
                         }
                     }
+                    rb.gravityScale = .3f;
+                    if (!once)
+                    {
+                        Debug.Log("pass");
+                        once = true;
+                        if (character != null)
+                            rb.AddForce(new Vector2(character.transform.right.x * -speed * 10 * Time.deltaTime, Vector2.up.y * 10 * speed * Time.deltaTime));
+            
+                    }
+                    lifeTime -= Time.deltaTime;
                     break;
                 }
             case WeaponType.Axe:
@@ -46,7 +54,6 @@ public class Weapon : MonoBehaviour
             case WeaponType.Sword:
             default:
                 break;
-
         }
     }
     private void OnCollisionEnter2D(Collision2D other)
@@ -61,13 +68,12 @@ public class Weapon : MonoBehaviour
                     }
                     break;
                 }
-			case WeaponType.Axe:
+            case WeaponType.Axe:
             case WeaponType.Dagger:
             case WeaponType.Sword:
             default:
                 break;
         }
-
     }
 }
 

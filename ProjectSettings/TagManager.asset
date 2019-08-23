@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Enemy
   - Weapon
+  - Shop
+  - Builder
+  - Tramps
+  - Comprobator
   layers:
   - Default
   - TransparentFX

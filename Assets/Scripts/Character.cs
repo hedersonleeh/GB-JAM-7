@@ -19,6 +19,7 @@ public class Character : MonoBehaviour
 
 
     [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] private GameObject iterationButtom;
     [SerializeField] private ParticleSystem magicWeapon;
     [SerializeField] private Transform LaunchPos;
     private Rigidbody2D rb;
@@ -36,10 +37,12 @@ public class Character : MonoBehaviour
     BaseClass player;
     public BaseClass Stacs { get { return player; } }
 
+    public PlayerController Controller { get { return controller; } }
+
     private bool once = false;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         isAlive = true;
@@ -80,6 +83,7 @@ public class Character : MonoBehaviour
         {
             if (controller != null)
             {
+                iterationButtom.SetActive(canInteract);
                 if (controller.Buttom_A)
                     if (!canInteract && !attacking)
                     {
@@ -89,6 +93,28 @@ public class Character : MonoBehaviour
                     {
                         Interacting = true;
                     }
+            }
+        }
+
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (controller != null)
+        {
+            if (other.gameObject.CompareTag("Builder"))
+            {
+                canInteract = true;
+            }
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (controller != null)
+        {
+            if (other.gameObject.CompareTag("Builder"))
+            {
+                canInteract = false;
             }
         }
 
@@ -115,7 +141,7 @@ public class Character : MonoBehaviour
                     Instantiate(weaponPrefab, LaunchPos.transform.position, Quaternion.identity);
                     break;
                 }
-                case WeaponType.Wand:
+            case WeaponType.Wand:
                 {
                     magicWeapon.Play();
                     break;
@@ -134,8 +160,6 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
         // animator.Play("Death");
     }
-
-
     IEnumerator AttackCooldown()
     {
         attacking = true;
