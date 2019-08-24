@@ -100,10 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  building: {fileID: 0}
   types: 5
-  lifeTime: 3
-  speed: 200
+  lifeTime: 1
+  speed: 300
 --- !u!212 &212566275412016898
 SpriteRenderer:
   m_ObjectHideFlags: 1

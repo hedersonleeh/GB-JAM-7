@@ -40,6 +40,7 @@ public class Character : MonoBehaviour
     public PlayerController Controller { get { return controller; } }
 
     private bool once = false;
+    [SerializeField] IA iA;
 
     // Use this for initialization
     void Awake()
@@ -95,9 +96,15 @@ public class Character : MonoBehaviour
                     }
             }
         }
-
     }
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void LateUpdate()
+    {
+        if (controller == null)
+            if (iA.InRange && !attacking)
+                Attack();
+    }
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (controller != null)
         {
@@ -106,7 +113,6 @@ public class Character : MonoBehaviour
                 canInteract = true;
             }
         }
-
     }
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -117,14 +123,13 @@ public class Character : MonoBehaviour
                 canInteract = false;
             }
         }
-
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk * 5, Vector2.up.y * 2 * enemy.Stacs.Atk));
+            rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk * 3, Vector2.up.y * 2 * enemy.Stacs.Atk));
             player.Damage(enemy.Stacs.StrAttack, def);
             player.DisplayStats();
         }
@@ -152,6 +157,7 @@ public class Character : MonoBehaviour
                     break;
                 }
         }
+
 
     }
     public void Death()

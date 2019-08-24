@@ -10,13 +10,18 @@ public class IA : MonoBehaviour
     [SerializeField, Range(0, 1)] float distance;
     private bool inRange;
     [SerializeField] private LayerMask whatIsEnemy;
-    [SerializeField] private float speed;
+   private float speed;
+   [SerializeField] private float minSpeed;
+   [SerializeField] private float maxSpeed;
+    private bool limitTouch = false;
+
     public bool InRange
     {
         get { return inRange; }
     }
     void Start()
     {
+		speed = Random.Range(minSpeed,maxSpeed);
         rb = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()
@@ -31,10 +36,13 @@ public class IA : MonoBehaviour
         }
         Move();
     }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        limitTouch = other.gameObject.CompareTag("Limit") ? true : false;
+    }
     void Move()
     {
-        if (!inRange)
+        if (!inRange && !limitTouch)
             rb.velocity = new Vector2(Time.deltaTime * speed * diretion, rb.velocity.y);
     }
 }

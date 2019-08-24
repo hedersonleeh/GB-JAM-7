@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(IA))]
 public class Enemy : MonoBehaviour
 {
+    public static int ctr = 0;
     private BaseClass enemy;
     [SerializeField] private string enemyName;
     [SerializeField] private EnemyType type;
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     private bool once = false;
     private IA ia;
     private bool attacking;
+    [SerializeField] int gold;
 
     public BaseClass Stacs { get { return enemy; } }
 
@@ -50,7 +52,9 @@ public class Enemy : MonoBehaviour
                 }
         }
     }
-
+private void Start() {
+	ctr++;
+}
     private void FixedUpdate()
     {
         if (ia.InRange && !attacking)
@@ -132,9 +136,9 @@ public class Enemy : MonoBehaviour
             else
             {
                 StartCoroutine(Cooldown(.2f));
-               rb.AddForce(new Vector2(other.transform.right.x * 30 * 10, Vector2.up.y * 10));
-                    enemy.Damage(25, def);
-                    enemy.DisplayStats();
+                rb.AddForce(new Vector2(other.transform.right.x * 30 * 10, Vector2.up.y * 10));
+                enemy.Damage(25, def);
+                enemy.DisplayStats();
             }
         }
     }
@@ -146,6 +150,32 @@ public class Enemy : MonoBehaviour
             rb.AddForce(new Vector2(other.transform.right.x * -10, Vector2.up.y * 10));
             enemy.Damage(character.Stacs.StrMagic, def);
             enemy.DisplayStats();
+        }
+    }
+  
+    private void OnDestroy()
+    {
+        if (ctr < 0)
+            ctr = 0;
+        else
+            ctr--;
+        switch (type)
+        {
+            case EnemyType.Skull:
+                Money.GiveMoney(gold);
+                break;
+            case EnemyType.Goblin:
+                Money.GiveMoney(gold);
+
+                break;
+            case EnemyType.Troll:
+                Money.GiveMoney(gold);
+
+                break;
+            case EnemyType.Gigant:
+                Money.GiveMoney(gold);
+
+                break;
         }
     }
     private void Death()

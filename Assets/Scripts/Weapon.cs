@@ -5,7 +5,7 @@ public class Weapon : MonoBehaviour
 
 {
     public Character character;
-    
+
     Rigidbody2D rb;
     [SerializeField] WeaponType types;
     [SerializeField] float lifeTime = 2f;
@@ -44,7 +44,10 @@ public class Weapon : MonoBehaviour
                         once = true;
                         if (character != null)
                             rb.AddForce(new Vector2(character.transform.right.x * -speed * 10 * Time.deltaTime, Vector2.up.y * 10 * speed * Time.deltaTime));
-            
+                        else
+                        {
+                            rb.AddForce(new Vector2(transform.right.x * -speed * 10 * Time.deltaTime, Vector2.up.y * 10 * speed * Time.deltaTime));
+                        }
                     }
                     lifeTime -= Time.deltaTime;
                     break;

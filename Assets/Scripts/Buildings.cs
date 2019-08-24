@@ -1,11 +1,11 @@
-using System;
+
 using System.Collections;
 using GBJAM7.Types;
 using UnityEngine;
 
 public class Buildings : MonoBehaviour
 {
-
+    public static int ctr = 0;
     private BaseClass building;
     [SerializeField] private string buildingName;
     [SerializeField] private BuildingType type;
@@ -13,6 +13,8 @@ public class Buildings : MonoBehaviour
     [SerializeField] private int def;
     [SerializeField] private float atk;
     [SerializeField] private float attackSpeed;
+     public static Vector2 maxPos;
+    [SerializeField] private static Vector2 minPos;
     private bool attacking;
     private Animator animator;
     [SerializeField] private GameObject weaponPrefab;
@@ -28,6 +30,8 @@ public class Buildings : MonoBehaviour
 
     void Awake()
     {
+        maxPos = new Vector2(-10.45f, 0.18f);
+        minPos = new Vector2(-3.371f, 0.18f);
         switch (type)
         {
             case BuildingType.House:
@@ -39,9 +43,21 @@ public class Buildings : MonoBehaviour
                     break;
                 }
             default:
+                //    ctr++;
                 building = new BaseClass(buildingName, life, def, atk, attackSpeed);
                 break;
         }
+    }
+    private void OnEnable()
+    {
+        ctr++;
+    }
+    private void OnDestroy()
+    {
+        if (ctr < 0)
+            ctr = 0;
+        else
+            ctr--;
     }
     private void FixedUpdate()
     {
@@ -79,7 +95,6 @@ public class Buildings : MonoBehaviour
             {
                 case BuildingType.Tower:
                     {
-                        weaponPrefab.GetComponent<Weapon>().building = this;
                         Instantiate(weaponPrefab, LaunchPos.transform.position, Quaternion.identity);
                         Instantiate(weaponPrefab, secondLaunchPos.transform.position, Quaternion.identity);
                         break;
@@ -91,7 +106,6 @@ public class Buildings : MonoBehaviour
                 case BuildingType.Castle:
                 default:
                     break;
-
             }
         }
     }
@@ -105,24 +119,47 @@ public class Buildings : MonoBehaviour
             building.DisplayStats();
         }
     }
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Comprobator"))
+        if (type != BuildingType.Castle)
         {
-          Debug.Log("DESTRUCTION");
-          Destroy(gameObject);
+            if (other.gameObject.CompareTag("Comprobator"))
+            {
+                float spaces;
+                spaces = other.bounds.size.x;
+                Debug.Log("Tramfor original" + transform.position);
+                transform.position = new Vector2(transform.position.x + spaces, transform.position.y);
+                Debug.Log("Move to" + transform.position);
+                if (type == BuildingType.House)
+                    Destroy(gameObject);
+            }
         }
+
     }
 
     private void LateUpdate()
     {
-        if (building.Life <= 0)
-            if (!once)
+        if (type != BuildingType.Castle)
+        {
+            if (transform.position.x < maxPos.x)
             {
-                once = true;
-                Death();
-                //Animator.SetTrigger("Death");
+                Debug.Log("Destroy");
+                Destroy(gameObject);
             }
+            if (transform.position.x > minPos.x)
+            {
+                Debug.Log("Destroy");
+                Destroy(gameObject);
+            }
+            if (building.Life <= 0)
+                if (!once)
+                {
+                    once = true;
+                    Death();
+                    //Animator.SetTrigger("Death");
+                }
+        }
+
     }
     public void Death()
     {
@@ -135,5 +172,5 @@ public class Buildings : MonoBehaviour
         yield return new WaitForSeconds(attackSpeed);
         attacking = false;
     }
-    
+
 }
