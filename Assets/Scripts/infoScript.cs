@@ -7,7 +7,7 @@ public class infoScript : MonoBehaviour
 {
     [SerializeField] TMP_Text buildingCounter;
     [SerializeField] TMP_Text moneyText;
-    public Image HpBar;
+    
     private float Min = 0;
 
     [Tooltip("Max value that Variable can be to fill Image.")]
@@ -21,18 +21,10 @@ public class infoScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        buildingCounter.text = string.Concat("Castle ",Mathf.RoundToInt(100*Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Buildings.ctr))),"%");
-        if (Buildings.ctr >= 0)
-            HpBar.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Buildings.ctr));
-        else
-        {
-            Debug.Log("GAME OVER");
-        }
+        buildingCounter.text = string.Concat("Round  ",SpawnScript.Round,"\nCASTLE  ",Mathf.RoundToInt(100*Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Buildings.ctr))),"%");
 
-        moneyText.text =string.Concat("Gold: ","$",Money.money.ToString("D2"));
+        moneyText.text =string.Concat("Gold: ","$",Money.money.ToString("D2"),"E: ",Enemy.ctr);
     }
-
-
     public static void Display(float life, int def, float attack, float magic, float atkSpd)
     {
     }

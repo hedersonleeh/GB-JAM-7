@@ -121,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1805304264110494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.718085, y: -0.052061964, z: 0}
+  m_LocalPosition: {x: -8.286918, y: -0.15453947, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4364139389945544}
@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 114673616148703534}
+  hpPos: 0.16
   Image: {fileID: 114350799716574900}
 --- !u!114 &114226393264561420
 MonoBehaviour:

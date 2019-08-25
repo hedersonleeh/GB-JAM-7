@@ -39,7 +39,7 @@ public class Builder : MonoBehaviour
                 case typeOfBuilder.TowerBuilder:
                     if (player.Interacting && !player.Controller.Buttom_B)
                     {
-                        tmp.text = string.Concat(">", objects[i].name, " $", (i + 1) * 10);
+                        tmp.text = string.Concat(objects[i].name, " $", (i + 1) * 10);
                         if (Input.GetButtonDown("Horizontal"))
                         {
                             i = i + 1 >= objects.Length ? 0 : ++i;
@@ -63,7 +63,7 @@ public class Builder : MonoBehaviour
                 case typeOfBuilder.Creator:
                     if (player.Interacting && !player.Controller.Buttom_B)
                     {
-                        tmp.text = string.Concat(">", objects[i].name, " $", (i + 1) * 10);
+                        tmp.text = string.Concat(objects[i].name, " $", (i + 1) * 10);
                         if (Input.GetButtonDown("Horizontal"))
                         {
                             i = i + 1 >= objects.Length ? 0 : ++i;

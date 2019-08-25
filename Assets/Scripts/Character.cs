@@ -129,7 +129,7 @@ public class Character : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk * 3, Vector2.up.y * 2 * enemy.Stacs.Atk));
+            rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk , Vector2.up.y *Time.deltaTime* enemy.Stacs.Atk));
             player.Damage(enemy.Stacs.StrAttack, def);
             player.DisplayStats();
         }

@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114238424965089712}
   - component: {fileID: 50846903919019396}
   - component: {fileID: 212178437362183546}
-  - component: {fileID: 114804427663806324}
   - component: {fileID: 70251929778296038}
   - component: {fileID: 95233216836290042}
   m_Layer: 9
@@ -126,7 +125,7 @@ GameObject:
   - component: {fileID: 224741677978149974}
   - component: {fileID: 222077524597988156}
   - component: {fileID: 114208532715967954}
-  - component: {fileID: 114972410456302790}
+  - component: {fileID: 114656544252834568}
   m_Layer: 5
   m_Name: HP
   m_TagString: Untagged
@@ -210,7 +209,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1060707511090608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.149, y: -0.246, z: 0}
+  m_LocalPosition: {x: -6.4, y: -0.246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4739378400005960}
@@ -365,8 +364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 114620787404036930}
-  moveSpeed: 100
-  smoothDamp: 0.25
+  moveSpeed: 70
+  smoothDamp: 0.2
 --- !u!114 &114288571733111350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,7 +394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 114620787404036930}
-  building: {fileID: 0}
   types: 1
   lifeTime: 0
   speed: 2
@@ -421,12 +419,26 @@ MonoBehaviour:
   def: 0
   atk: 35
   magic: 0
-  attackSpeed: 0.5
+  attackSpeed: 0.3
   weaponPrefab: {fileID: 1674658818034122, guid: 0a23ea1bda963e94c81f091229ad20d7,
     type: 2}
   iterationButtom: {fileID: 1591673773426424}
   magicWeapon: {fileID: 198203263271105712}
   LaunchPos: {fileID: 4253566624057906}
+  iA: {fileID: 0}
+--- !u!114 &114656544252834568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930824460502948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da04f4bfd7d9cb41971867476e3714f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Variable: {fileID: 114620787404036930}
+  Image: {fileID: 114208532715967954}
 --- !u!114 &114697575050479858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -448,30 +460,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114804427663806324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1060707511090608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14cefab2525664e49976719cb66728fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114972410456302790
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1930824460502948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da04f4bfd7d9cb41971867476e3714f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Variable: {fileID: 114620787404036930}
-  Image: {fileID: 114208532715967954}
 --- !u!198 &198203263271105712
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -5233,7 +5221,7 @@ RectTransform:
   m_GameObject: {fileID: 1930824460502948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.010000001, y: 0.010000001, z: 0.010000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224706525438716762}
   m_Father: {fileID: 224452918773802554}
@@ -5241,6 +5229,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88.459, y: -72.00162}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 12, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
