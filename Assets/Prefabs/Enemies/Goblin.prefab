@@ -121,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1472072997940926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.424, y: -0.26, z: 0}
+  m_LocalPosition: {x: -8.21722, y: -0.21029735, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4553172580007478}
@@ -306,7 +306,7 @@ MonoBehaviour:
   life: 150
   def: 20
   atk: 10
-  attackSpeed: 0.5
+  attackSpeed: 0.3
   rb: {fileID: 50719888211234946}
   animator: {fileID: 95831052211735718}
   gold: 3
@@ -390,7 +390,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.21, y: 0.24}
+  m_Size: {x: 0.64, y: 0.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

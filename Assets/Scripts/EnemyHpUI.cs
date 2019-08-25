@@ -12,6 +12,7 @@ public class EnemyHpUI : MonoBehaviour
 
     [Tooltip("Max value that Variable can be to fill Image.")]
     private float Max;
+    [SerializeField] private float hpPos = .16f;
 
     [Tooltip("Image to set the fill amount on.")]
     public Image Image;
@@ -37,6 +38,14 @@ public class EnemyHpUI : MonoBehaviour
     private void LateUpdate()
     {
         if (enemy != null)
-            transform.position = new Vector2(enemy.transform.position.x, enemy.transform.position.y + .16f);
+        {
+            if (!(hpPos < 0))
+                transform.position = new Vector2(enemy.transform.position.x, enemy.transform.position.y + hpPos);
+            else
+            {
+                transform.position = new Vector2(enemy.transform.position.x, enemy.transform.position.y + .16f);
+
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ public class SpawnScript : MonoBehaviour
     [SerializeField] GameObject[] wave2;
     [SerializeField] GameObject[] wave3;
     [SerializeField] GameObject[] wave4;
-    private int round = 0;
+    private static int round = 0;
     private int EnemiesPerWave = 5;
     [SerializeField] private float timesPerSpawn;
     private float timer = 0;
@@ -17,6 +17,12 @@ public class SpawnScript : MonoBehaviour
 
 
     private bool roundBegin;
+
+    public static int Round
+    {
+        get { return round; }
+    }
+
     void Start()
     {
         round = 1;
@@ -117,7 +123,7 @@ public class SpawnScript : MonoBehaviour
 
     void NextWave()
     {
-        EnemiesPerWave = +5;
+        EnemiesPerWave += 5;
         round++;
         roundBegin = false;
         canAdd = true;

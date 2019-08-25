@@ -228,6 +228,8 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 256
+  minSpeed: 15
+  maxSpeed: 20
 --- !u!114 &114552869547842792
 MonoBehaviour:
   m_ObjectHideFlags: 1

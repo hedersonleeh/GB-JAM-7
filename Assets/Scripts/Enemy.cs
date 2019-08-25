@@ -52,18 +52,20 @@ public class Enemy : MonoBehaviour
                 }
         }
     }
-private void Start() {
-	ctr++;
-}
+    private void Start()
+    {
+        ctr++;
+    }
     private void FixedUpdate()
     {
-        if (ia.InRange && !attacking)
+        if (ia.InRange)
             Attack();
     }
     private void Attack()
     {
         if (!attacking)
         {
+            StartCoroutine(AttackCooldown());
             animator.SetTrigger("Attack");
         }
     }
@@ -71,6 +73,7 @@ private void Start() {
     IEnumerator AttackCooldown()
     {
         attacking = true;
+        Debug.Log(attacking + "StarCorrutine");
         yield return new WaitForSeconds(attackSpeed);
         attacking = false;
     }
@@ -152,7 +155,7 @@ private void Start() {
             enemy.DisplayStats();
         }
     }
-  
+
     private void OnDestroy()
     {
         if (ctr < 0)
