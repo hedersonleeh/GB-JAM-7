@@ -73,7 +73,6 @@ public class Enemy : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         attacking = true;
-        Debug.Log(attacking + "StarCorrutine");
         yield return new WaitForSeconds(attackSpeed);
         attacking = false;
     }
@@ -96,38 +95,39 @@ public class Enemy : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
+
+        if (other.gameObject.CompareTag("Weapon"))
         {
-            if (other.gameObject.CompareTag("Weapon"))
+            FindObjectOfType<AudioManager>().Play("Hit");
+            Character character = other.gameObject.GetComponent<Weapon>().character;
+            if (character != null)
             {
-                Character character = other.gameObject.GetComponent<Weapon>().character;
-                if (character != null)
-                {
-                    rb.AddForce(new Vector2(other.transform.right.x * character.Stacs.Atk * 10, Vector2.up.y * 10));
-                    enemy.Damage(character.Stacs.StrAttack, def);
-                    enemy.DisplayStats();
-                }
-                else
-                {
-                    rb.AddForce(new Vector2(other.transform.right.x * 30 * 10, Vector2.up.y * 10));
-                    enemy.Damage(25, def);
-                    enemy.DisplayStats();
-                }
+                rb.AddForce(new Vector2(other.transform.right.x * character.Stacs.Atk * 10, Vector2.up.y * 10));
+                enemy.Damage(character.Stacs.StrAttack, def);
+                enemy.DisplayStats();
             }
-            if (other.gameObject.CompareTag("Tramps"))
+            else
             {
-                Buildings building = other.gameObject.GetComponent<Buildings>();
-                rb.AddForce(new Vector2(other.transform.right.x * -building.Stacs.Atk, 0));
-                enemy.Damage(building.Stacs.StrAttack, def);
+                rb.AddForce(new Vector2(other.transform.right.x * 30 * 10, Vector2.up.y * 10));
+                enemy.Damage(25, def);
                 enemy.DisplayStats();
             }
         }
+        if (other.gameObject.CompareTag("Tramps"))
+        {
+            FindObjectOfType<AudioManager>().Play("Hit");
+            Buildings building = other.gameObject.GetComponent<Buildings>();
+            rb.AddForce(new Vector2(other.transform.right.x * -building.Stacs.Atk, 0));
+            enemy.Damage(building.Stacs.StrAttack, def);
+            enemy.DisplayStats();
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-
-
+            FindObjectOfType<AudioManager>().Play("Hit");
             Character character = other.gameObject.GetComponent<Weapon>().character;
             if (character != null)
             {
@@ -149,6 +149,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
+            FindObjectOfType<AudioManager>().Play("Hit");
             Character character = other.gameObject.GetComponentInParent<Character>();
             rb.AddForce(new Vector2(other.transform.right.x * -10, Vector2.up.y * 10));
             enemy.Damage(character.Stacs.StrMagic, def);

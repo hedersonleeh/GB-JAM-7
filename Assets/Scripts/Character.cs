@@ -2,10 +2,11 @@
 using System.Collections;
 using GBJAM7.Types;
 using UnityEngine;
-
+using EZCameraShake;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Character : MonoBehaviour
 {
+    public static int ctr = 0;
     [SerializeField] PlayerController controller;
     [SerializeField] private Animator animator;
     [SerializeField] private CharacterType typeOfCharacter;
@@ -16,14 +17,11 @@ public class Character : MonoBehaviour
     [SerializeField] private float atk;
     [SerializeField] private float magic;
     [SerializeField] private float attackSpeed;
-
-
     [SerializeField] private GameObject weaponPrefab;
     [SerializeField] private GameObject iterationButtom;
     [SerializeField] private ParticleSystem magicWeapon;
     [SerializeField] private Transform LaunchPos;
     private Rigidbody2D rb;
-
     private bool canInteract;
     private bool attacking;
     private bool interacting = false;
@@ -32,17 +30,13 @@ public class Character : MonoBehaviour
         get { return interacting; }
         set { interacting = value; }
     }
-    public bool isAlive { get; private set; }
+    public bool isAlive { get;  set; }
 
     BaseClass player;
     public BaseClass Stacs { get { return player; } }
-
     public PlayerController Controller { get { return controller; } }
-
     private bool once = false;
     [SerializeField] IA iA;
-
-    // Use this for initialization
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,6 +63,19 @@ public class Character : MonoBehaviour
                 player = new BaseClass(characterName, life, def, atk, magic, attackSpeed, WeaponType.Wand);
                 break;
         }
+    }
+    private void OnEnable()
+    {
+        if (CharacterType.Player != typeOfCharacter)
+            ctr++;
+    }
+    private void OnDestroy()
+    {
+        if (ctr < 0)
+        {
+            ctr = 0;
+        }
+        ctr--;
     }
     private void Update()
     {
@@ -97,7 +104,6 @@ public class Character : MonoBehaviour
             }
         }
     }
-
     private void LateUpdate()
     {
         if (controller == null)
@@ -128,8 +134,9 @@ public class Character : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+             FindObjectOfType<AudioManager>().Play("Hit");
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk , Vector2.up.y *Time.deltaTime* enemy.Stacs.Atk));
+            rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk, Vector2.up.y * Time.deltaTime * enemy.Stacs.Atk));
             player.Damage(enemy.Stacs.StrAttack, def);
             player.DisplayStats();
         }
@@ -149,6 +156,7 @@ public class Character : MonoBehaviour
             case WeaponType.Wand:
                 {
                     magicWeapon.Play();
+                    FindObjectOfType<AudioManager>().Play("Fire");
                     break;
                 }
             default:
@@ -162,8 +170,13 @@ public class Character : MonoBehaviour
     }
     public void Death()
     {
+        if (CharacterType.Player != typeOfCharacter)
+            Destroy(gameObject);
+            else
+            {
+                gameObject.SetActive(false);
+            }
         isAlive = false;
-        Destroy(gameObject);
         // animator.Play("Death");
     }
     IEnumerator AttackCooldown()

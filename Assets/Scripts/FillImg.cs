@@ -36,7 +36,6 @@ public class FillImg : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (Variable != null)
             transform.position = new Vector2(Variable.transform.position.x, Variable.transform.position.y + .16f);
     }
 }

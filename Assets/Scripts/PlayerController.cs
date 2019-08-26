@@ -36,15 +36,18 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (player.isAlive)
+        if (player != null)
         {
-            if (!player.Interacting)
+            if (player.isAlive)
             {
-                Vector2 targetVelocity;
-                targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
-                rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
-                if (horizontal < 0 && facingRight) Flip();
-                else if (horizontal > 0 && !facingRight) Flip();
+                if (!player.Interacting)
+                {
+                    Vector2 targetVelocity;
+                    targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
+                    rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
+                    if (horizontal < 0 && facingRight) Flip();
+                    else if (horizontal > 0 && !facingRight) Flip();
+                }
             }
         }
 

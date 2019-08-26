@@ -13,7 +13,7 @@ public class Buildings : MonoBehaviour
     [SerializeField] private int def;
     [SerializeField] private float atk;
     [SerializeField] private float attackSpeed;
-     public static Vector2 maxPos;
+    public static Vector2 maxPos;
     [SerializeField] private static Vector2 minPos;
     private bool attacking;
     private Animator animator;
@@ -58,6 +58,7 @@ public class Buildings : MonoBehaviour
             ctr = 0;
         else
             ctr--;
+             FindObjectOfType<AudioManager>().Play("BuildingDead");
     }
     private void FixedUpdate()
     {
@@ -127,9 +128,7 @@ public class Buildings : MonoBehaviour
             {
                 float spaces;
                 spaces = other.bounds.size.x;
-                Debug.Log("Tramfor original" + transform.position);
                 transform.position = new Vector2(transform.position.x + spaces, transform.position.y);
-                Debug.Log("Move to" + transform.position);
                 if (type == BuildingType.House)
                     Destroy(gameObject);
             }
@@ -143,22 +142,20 @@ public class Buildings : MonoBehaviour
         {
             if (transform.position.x < maxPos.x)
             {
-                Debug.Log("Destroy");
                 Destroy(gameObject);
             }
             if (transform.position.x > minPos.x)
             {
-                Debug.Log("Destroy");
                 Destroy(gameObject);
             }
-            if (building.Life <= 0)
-                if (!once)
-                {
-                    once = true;
-                    Death();
-                    //Animator.SetTrigger("Death");
-                }
         }
+        if (building.Life <= 0)
+            if (!once)
+            {
+                once = true;
+                Death();
+                //Animator.SetTrigger("Death");
+            }
 
     }
     public void Death()

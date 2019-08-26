@@ -7,7 +7,8 @@ public class infoScript : MonoBehaviour
 {
     [SerializeField] TMP_Text buildingCounter;
     [SerializeField] TMP_Text moneyText;
-    
+
+    [SerializeField] TMP_Text gameOverText;
     private float Min = 0;
 
     [Tooltip("Max value that Variable can be to fill Image.")]
@@ -19,11 +20,22 @@ public class infoScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        buildingCounter.text = string.Concat("Round  ",SpawnScript.Round,"\nCASTLE  ",Mathf.RoundToInt(100*Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Buildings.ctr))),"%");
-
-        moneyText.text =string.Concat("Gold: ","$",Money.money.ToString("D2"),"E: ",Enemy.ctr);
+        if (!GameLoop.GameOver)
+        {
+            int percentage = Mathf.RoundToInt(100 * Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Buildings.ctr)));
+            buildingCounter.text = string.Concat("Wave: ", SpawnScript.Round.ToString("D2"),
+                                                "\t Alies:  ", Character.ctr.ToString("D2"),
+                                                "\nCASTLE  ", percentage, "%");
+            moneyText.text = string.Concat("Gold: ", "$", Money.money.ToString("D2"), " E: ", Enemy.ctr);
+            gameOverText.text = "";
+        }
+        else if (GameLoop.GameOver)
+        {
+            buildingCounter.text = moneyText.text = "";
+            gameOverText.text = "Game Over\n A Game by Hedersonleeh";
+        }
     }
     public static void Display(float life, int def, float attack, float magic, float atkSpd)
     {
@@ -35,7 +47,7 @@ public class infoScript : MonoBehaviour
     public static void Display(float life, int def)
     {
     }
-   
+
 }
 
 

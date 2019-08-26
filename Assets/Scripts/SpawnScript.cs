@@ -22,9 +22,12 @@ public class SpawnScript : MonoBehaviour
     {
         get { return round; }
     }
-
+  
     void Start()
     {
+        FindObjectOfType<AudioManager>().Play("Theme");   
+
+
         round = 1;
         roundBegin = false;
     }
@@ -32,7 +35,6 @@ public class SpawnScript : MonoBehaviour
     // Update is called once per frame	
     void Update()
     {
-        Debug.Log(string.Concat("\t", EnemiesPerWave, "=PERWAVE\t", Enemy.ctr, "=ENEMIES\t", round, "=ROUND"));
         bool canSpawn = Enemy.ctr != 0 && canAdd || !roundBegin;
         if (timer <= 0)
         {
@@ -123,6 +125,7 @@ public class SpawnScript : MonoBehaviour
 
     void NextWave()
     {
+        FindObjectOfType<AudioManager>().Play("Win");
         EnemiesPerWave += 5;
         round++;
         roundBegin = false;
