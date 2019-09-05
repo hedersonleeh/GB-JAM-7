@@ -309,7 +309,7 @@ MonoBehaviour:
   attackSpeed: 0.3
   rb: {fileID: 50719888211234946}
   animator: {fileID: 95831052211735718}
-  gold: 3
+  gold: 5
 --- !u!114 &114741381973569400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 114620604490934646}
+  hpPos: 0.16
   Image: {fileID: 114510823947172910}
 --- !u!114 &114911084325698530
 MonoBehaviour:

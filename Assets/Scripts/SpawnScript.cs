@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpawnScript : MonoBehaviour
 {
 
-    [SerializeField] GameObject wave1;
-    [SerializeField] GameObject[] wave2;
-    [SerializeField] GameObject[] wave3;
-    [SerializeField] GameObject[] wave4;
+    [SerializeField] Enemy wave1;
+    [SerializeField] Enemy[] wave2;
+    [SerializeField] Enemy[] wave3;
+    [SerializeField] Enemy[] wave4;
     private static int round = 0;
     private int EnemiesPerWave = 5;
     [SerializeField] private float timesPerSpawn;
@@ -22,10 +22,10 @@ public class SpawnScript : MonoBehaviour
     {
         get { return round; }
     }
-  
+
     void Start()
     {
-        FindObjectOfType<AudioManager>().Play("Theme");   
+        FindObjectOfType<AudioManager>().Play("Theme");
 
 
         round = 1;
@@ -40,7 +40,7 @@ public class SpawnScript : MonoBehaviour
         {
             switch (round)
             {
-                case 2:
+
                 case 1:
                     if (canSpawn)
                     {
@@ -51,6 +51,18 @@ public class SpawnScript : MonoBehaviour
                         NextWave();
                     }
                     break;
+                case 2:
+                    {
+                        if (canSpawn)
+                        {
+                            Spawn(wave1);
+                        }
+                        else if (Enemy.ctr <= 0)
+                        {
+                            NextWave();
+                        }
+                        break;
+                    }
                 case 3:
                     {
                         if (canSpawn)
@@ -96,7 +108,7 @@ public class SpawnScript : MonoBehaviour
             timer -= Time.deltaTime;
         }
     }
-    private void Spawn(GameObject[] wave)
+    private void Spawn(Enemy[] wave)
     {
         if (EnemiesPerWave <= Enemy.ctr)
         {
@@ -109,7 +121,7 @@ public class SpawnScript : MonoBehaviour
             roundBegin = true;
         }
     }
-    private void Spawn(GameObject wave)
+    private void Spawn(Enemy wave)
     {
         if (EnemiesPerWave <= Enemy.ctr)
         {
@@ -120,16 +132,13 @@ public class SpawnScript : MonoBehaviour
             Instantiate(wave, new Vector2(transform.position.x, wave.transform.position.y), Quaternion.identity);
             roundBegin = true;
         }
-
     }
-
     void NextWave()
     {
         FindObjectOfType<AudioManager>().Play("Win");
-        EnemiesPerWave += 5;
+        EnemiesPerWave += round;
         round++;
         roundBegin = false;
         canAdd = true;
-
     }
 }

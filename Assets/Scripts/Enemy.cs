@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     public BaseClass Stacs { get { return enemy; } }
 
+    public EnemyType Type { get { return type; } }
 
 
     // Use this for initialization
@@ -95,22 +96,21 @@ public class Enemy : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-
         if (other.gameObject.CompareTag("Weapon"))
         {
             FindObjectOfType<AudioManager>().Play("Hit");
             Character character = other.gameObject.GetComponent<Weapon>().character;
             if (character != null)
             {
-                rb.AddForce(new Vector2(other.transform.right.x * character.Stacs.Atk * 10, Vector2.up.y * 10));
+                rb.AddForce(new Vector2(other.transform.right.x * -character.Stacs.Atk * 10, Vector2.up.y * 10));
                 enemy.Damage(character.Stacs.StrAttack, def);
                 enemy.DisplayStats();
             }
             else
             {
-                rb.AddForce(new Vector2(other.transform.right.x * 30 * 10, Vector2.up.y * 10));
+                rb.AddForce(new Vector2(other.transform.right.x * -30 * 10, Vector2.up.y * 10));
                 enemy.Damage(25, def);
-                enemy.DisplayStats();
+
             }
         }
         if (other.gameObject.CompareTag("Tramps"))

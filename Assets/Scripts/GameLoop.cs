@@ -30,12 +30,18 @@ public class GameLoop : MonoBehaviour
     {
         if (Player.Stacs.Life <= 0)
         {
-            Player.gameObject.transform.position = SpawnPoint.transform.position;
-			Player.Stacs.Healing(100);
-            Player.isAlive = true;
-            Player.gameObject.SetActive(true);
+           Invoke("SpawnPlayer",2f);
         }
     }
+
+    private void SpawnPlayer()
+    {
+        Player.gameObject.transform.position = SpawnPoint.transform.position;
+        Player.Stacs.Healing(100);
+        Player.isAlive = true;
+        Player.gameObject.SetActive(true);
+    }
+
     void ChangeScene()
     {
 	SceneScript.ChangeScene(NextScene);

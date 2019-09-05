@@ -40,7 +40,6 @@ public class Weapon : MonoBehaviour
                     rb.gravityScale = .3f;
                     if (!once)
                     {
-                        Debug.Log("pass");
                         once = true;
                         if (character != null)
                             rb.AddForce(new Vector2(character.transform.right.x * -speed * 10 * Time.deltaTime, Vector2.up.y * 10 * speed * Time.deltaTime));

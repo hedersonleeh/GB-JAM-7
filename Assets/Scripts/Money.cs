@@ -7,6 +7,8 @@ public class Money : MonoBehaviour
 
     public static int money = 0;
     public static bool canSpend;
+    
+        
     public static bool SpendMoney(int amount)
     {
         if (amount > money)

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114502555830039372}
   - component: {fileID: 50644181235084688}
   m_Layer: 9
-  m_Name: Trap
+  m_Name: Traps
   m_TagString: Tramps
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   type: 6
   life: 500
   def: 0
-  atk: 1
+  atk: 30
   attackSpeed: 1.5
   weaponPrefab: {fileID: 0}
   LaunchPos: {fileID: 0}

@@ -18,11 +18,9 @@ public class Character : MonoBehaviour
     [SerializeField] private float magic;
     [SerializeField] private float attackSpeed;
     [SerializeField] private GameObject weaponPrefab;
-    [SerializeField] private GameObject iterationButtom;
     [SerializeField] private ParticleSystem magicWeapon;
     [SerializeField] private Transform LaunchPos;
     private Rigidbody2D rb;
-    private bool canInteract;
     private bool attacking;
     private bool interacting = false;
     public bool Interacting
@@ -30,11 +28,17 @@ public class Character : MonoBehaviour
         get { return interacting; }
         set { interacting = value; }
     }
-    public bool isAlive { get;  set; }
+    public bool isAlive { get; set; }
 
-    BaseClass player;
     public BaseClass Stacs { get { return player; } }
     public PlayerController Controller { get { return controller; } }
+
+    BaseClass player;
+    public float Life { get { return life; } }
+
+    public int Def { get { return def; } }
+
+    public float Atk { get { return atk; } }
     private bool once = false;
     [SerializeField] IA iA;
     void Awake()
@@ -68,14 +72,19 @@ public class Character : MonoBehaviour
     {
         if (CharacterType.Player != typeOfCharacter)
             ctr++;
+        else
+            animator.Play("Attack");
     }
     private void OnDestroy()
     {
-        if (ctr < 0)
+        if (CharacterType.Player != typeOfCharacter)
         {
-            ctr = 0;
+            if (ctr < 0)
+            {
+                ctr = 0;
+            }
+            ctr--;
         }
-        ctr--;
     }
     private void Update()
     {
@@ -91,15 +100,10 @@ public class Character : MonoBehaviour
         {
             if (controller != null)
             {
-                iterationButtom.SetActive(canInteract);
                 if (controller.Buttom_A)
-                    if (!canInteract && !attacking)
+                    if (!interacting && !attacking)
                     {
                         Attack();
-                    }
-                    else if (canInteract)
-                    {
-                        Interacting = true;
                     }
             }
         }
@@ -110,31 +114,11 @@ public class Character : MonoBehaviour
             if (iA.InRange && !attacking)
                 Attack();
     }
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (controller != null)
-        {
-            if (other.gameObject.CompareTag("Builder"))
-            {
-                canInteract = true;
-            }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (controller != null)
-        {
-            if (other.gameObject.CompareTag("Builder"))
-            {
-                canInteract = false;
-            }
-        }
-    }
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-             FindObjectOfType<AudioManager>().Play("Hit");
+            FindObjectOfType<AudioManager>().Play("Hit");
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             rb.AddForce(new Vector2(other.transform.right.x * enemy.Stacs.Atk, Vector2.up.y * Time.deltaTime * enemy.Stacs.Atk));
             player.Damage(enemy.Stacs.StrAttack, def);
@@ -144,7 +128,6 @@ public class Character : MonoBehaviour
     public void Attack()
     {
         StartCoroutine(AttackCooldown());
-        // animator.SetTrigger("Attack");
         switch (player.Weapon)
         {
             case WeaponType.Bow:
@@ -172,10 +155,11 @@ public class Character : MonoBehaviour
     {
         if (CharacterType.Player != typeOfCharacter)
             Destroy(gameObject);
-            else
-            {
+        else
+        {
+            if (!attacking)
                 gameObject.SetActive(false);
-            }
+        }
         isAlive = false;
         // animator.Play("Death");
     }

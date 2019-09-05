@@ -16,7 +16,6 @@ public class FillImg : MonoBehaviour
 
     [Tooltip("Image to set the fill amount on.")]
     public Image Image;
-
     private void Start()
     {
         if (Variable != null)

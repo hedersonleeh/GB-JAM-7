@@ -329,7 +329,7 @@ MonoBehaviour:
   attackSpeed: 2.7
   rb: {fileID: 50482631650355778}
   animator: {fileID: 95230199764640292}
-  gold: 5
+  gold: 10
 --- !u!114 &114902205671648276
 MonoBehaviour:
   m_ObjectHideFlags: 1

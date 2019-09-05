@@ -15,5 +15,6 @@ public class SceneScript : MonoBehaviour {
 	public static void ChangeScene(string nextScene)
     {
         SceneManager.LoadScene(nextScene);
+        Money.money = 0;
     }
 }

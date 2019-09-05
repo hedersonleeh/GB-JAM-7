@@ -53,7 +53,7 @@ public class MenuScript : MonoBehaviour
                     {
                         SceneScript.ChangeScene(SceneNames[0]);
                         once = true;
-                                          FindObjectOfType<AudioManager>().Stop("Intro");
+                        FindObjectOfType<AudioManager>().Stop("Intro");
 
                     }
                     break;
@@ -88,7 +88,7 @@ public class MenuScript : MonoBehaviour
                     {
                         SceneScript.ChangeScene(SceneNames[1]);
                         once = true;
-                                          FindObjectOfType<AudioManager>().Stop("Intro");
+                        FindObjectOfType<AudioManager>().Stop("Intro");
 
                     }
                     break;

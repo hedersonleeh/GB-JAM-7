@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 114461473070378702}
+  hpPos: 0.16
   Image: {fileID: 114386798651648654}
 --- !u!114 &114852966380748260
 MonoBehaviour:

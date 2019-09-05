@@ -25,6 +25,12 @@ public class Buildings : MonoBehaviour
     [SerializeField] private LayerMask whaIsEnemy;
 
     public BaseClass Stacs { get { return building; } }
+
+    public float Life { get { return life; } }
+
+    public int Def { get { return def; } }
+    public float Atk { get { return atk; } }
+
     RaycastHit2D ray;
     private bool once = false;
 
@@ -58,7 +64,7 @@ public class Buildings : MonoBehaviour
             ctr = 0;
         else
             ctr--;
-             FindObjectOfType<AudioManager>().Play("BuildingDead");
+        FindObjectOfType<AudioManager>().Play("BuildingDead");
     }
     private void FixedUpdate()
     {
@@ -120,6 +126,7 @@ public class Buildings : MonoBehaviour
             building.DisplayStats();
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (type != BuildingType.Castle)

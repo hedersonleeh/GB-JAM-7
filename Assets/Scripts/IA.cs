@@ -14,7 +14,6 @@ public class IA : MonoBehaviour
    [SerializeField] private float minSpeed;
    [SerializeField] private float maxSpeed;
     private bool limitTouch = false;
-
     public bool InRange
     {
         get { return inRange; }

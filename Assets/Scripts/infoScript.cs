@@ -1,6 +1,5 @@
 ﻿
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class infoScript : MonoBehaviour
@@ -33,6 +32,7 @@ public class infoScript : MonoBehaviour
         }
         else if (GameLoop.GameOver)
         {
+            gameOverText.gameObject.SetActive(true);
             buildingCounter.text = moneyText.text = "";
             gameOverText.text = "Game Over\n A Game by Hedersonleeh";
         }

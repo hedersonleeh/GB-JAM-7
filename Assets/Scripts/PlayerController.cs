@@ -7,50 +7,42 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0, 0.35f)] private float smoothDamp;
     private Vector2 velocity = Vector2.zero;
     Rigidbody2D rb;
-    private int vertical;
-    private int horizontal;
-    private bool buttom_A;
-    private bool buttom_B;
-    private bool buttom_Start;
+   
     private bool facingRight = false;
 
-    public bool Buttom_A { get { return buttom_A; } }
+    public bool Buttom_A { get; private set; }
 
-    public bool Buttom_B { get { return buttom_B; } }
+    public bool Buttom_B { get; private set; }
 
-    public int Horizontal { get { return horizontal; } }
+    public int Horizontal { get; private set; }
 
-    public int Vertical { get { return vertical; } }
+    public int Vertical { get; private set; }
 
-    public bool Buttom_Start { get { return buttom_Start; } }
+    public bool Buttom_Start { get; private set; }
+    public bool Buttom_Select { get; private set; }
 
-
-
-    // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-
     void FixedUpdate()
     {
-        if (player != null)
+        if (player != null && player.isAlive && !player.Interacting)
         {
-            if (player.isAlive)
-            {
-                if (!player.Interacting)
-                {
-                    Vector2 targetVelocity;
-                    targetVelocity = new Vector2(horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
-                    rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
-                    if (horizontal < 0 && facingRight) Flip();
-                    else if (horizontal > 0 && !facingRight) Flip();
-                }
-            }
+            MovePlayer();
         }
+    }
 
+    private void MovePlayer()
+    {
+        Vector2 targetVelocity = new Vector2(Horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
+
+        if (Horizontal < 0 && facingRight)
+            Flip();
+        else if (Horizontal > 0 && !facingRight)
+            Flip();
     }
 
     void Update()
@@ -59,11 +51,12 @@ public class PlayerController : MonoBehaviour
     }
     void Inputs()
     {
-        horizontal = (int)Input.GetAxisRaw("Horizontal");
-        vertical = (int)Input.GetAxisRaw("Vertical");
-        buttom_A = Input.GetButtonDown("Jump");
-        buttom_B = Input.GetButtonDown("Fire1");
-        buttom_Start = Input.GetButtonDown("Submit");
+        Horizontal = (int)Input.GetAxisRaw("Horizontal");
+        Vertical = (int)Input.GetAxisRaw("Vertical");
+        Buttom_A = Input.GetButtonDown("Jump");
+        Buttom_B = Input.GetButtonDown("Fire1");
+        Buttom_Start = Input.GetButtonDown("Submit");
+        Buttom_Select = Input.GetButtonDown("Select");
     }
     void Flip()
     {
