@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
     {
         Horizontal = (int)Input.GetAxisRaw("Horizontal");
         Vertical = (int)Input.GetAxisRaw("Vertical");
-        Buttom_A = Input.GetButtonDown("Jump");
-        Buttom_B = Input.GetButtonDown("Fire1");
+        Buttom_A = Input.GetButtonDown("ButtonA");
+        Buttom_B = Input.GetButtonDown("ButtonB");
         Buttom_Start = Input.GetButtonDown("Submit");
         Buttom_Select = Input.GetButtonDown("Select");
     }

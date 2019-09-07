@@ -1,11 +1,13 @@
 
 using UnityEngine;
+using GBJAM7.Types;
 [System.Serializable]
 public class Dialog
 {
     public string dialogName;
     [TextArea] public string message;
-    public KeyCode actionCode;
+    public string actionCode;
+    public EnemyType type;
     public int quest;
 
     public Dialog()
@@ -15,6 +17,4 @@ public class Dialog
     {
         this.message = message;
     }
-
-
 }

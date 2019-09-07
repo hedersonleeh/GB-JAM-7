@@ -1214,73 +1214,98 @@ MonoBehaviour:
   showedText: {fileID: 1532633764}
   BeginningDialogs:
   - dialogName: 
-    message: Press B to continue
-    actionCode: 120
+    message: Press A to continue
+    actionCode: 
+    type: 0
     quest: 0
   - dialogName: 
-    message: Welcome Back Defender
-    actionCode: 0
+    message: Welcome back Defender.
+    actionCode: 
+    type: 0
     quest: 0
   - dialogName: 
-    message: Have you remember how to fight?
-    actionCode: 0
+    message: "It is time for you to fight for the reign again.\r\n"
+    actionCode: 
+    type: 0
     quest: 0
   - dialogName: 
-    message: I will show You
-    actionCode: 0
+    message: "You still remember how do it, right?\r\n"
+    actionCode: 
+    type: 0
     quest: 0
   BattleDialogs:
   - dialogName: ActivateMove
-    message: Move To right with Arrow
-    actionCode: 275
-    quest: 0
-  - dialogName: Action
-    message: Move To Left with Arrow
-    actionCode: 276
+    message: "Move  using the arrows.\r\n"
+    actionCode: Horizontal
+    type: 0
     quest: 0
   - dialogName: 
-    message: Nice! Now you know to move (you can move with WASD).
-    actionCode: 0
+    message: "You can also move using WASD.\r\n"
+    actionCode: 
+    type: 0
     quest: 0
   - dialogName: Action
-    message: Press A to attack!
-    actionCode: 122
+    message: "Press A to use your sword.\r\n"
+    actionCode: ButtonA
+    type: 0
     quest: 0
+  - dialogName: 
+    message: "Excellent! Be sure to not let the evil forces destroy our kingdom.\r\n"
+    actionCode: 
+    type: 0
+    quest: 3
   - dialogName: Quest
-    message: Kill those enemies
-    actionCode: 0
+    message: Here comes the enemies!!
+    actionCode: 
+    type: 0
+    quest: 3
+  - dialogName: 
+    message: "By defeating enemies you get gold from the curse treasure.\r\n"
+    actionCode: 
+    type: 0
     quest: 3
   BuildDialogs:
+  - dialogName: 
+    message: "You can use it to build traps, towers or contract allies.\r\n"
+    actionCode: 
+    type: 0
+    quest: 0
   - dialogName: ActivateSelect
     message: Press SELECT to open Command Panel
-    actionCode: 99
-    quest: 0
-  - dialogName: 
-    message: Now you can Build or call Alies with money
-    actionCode: 99
-    quest: 0
-  - dialogName: 
-    message: We need to defend the next Wave!
-    actionCode: 122
+    actionCode: Select
+    type: 0
     quest: 0
   - dialogName: Build
-    message: Build a Tower
-    actionCode: 122
+    message: "Try to build a tower to defend our kingdom.\r\n"
+    actionCode: ButtonA
+    type: 0
     quest: 0
   - dialogName: Alies
-    message: Call a Warrior
-    actionCode: 122
+    message: "Great! Now contract a warrior to fight by your side.\r\n"
+    actionCode: ButtonA
+    type: 0
     quest: 0
   - dialogName: Quest
-    message: Beat the Wave
-    actionCode: 122
-    quest: 20
-  AliesDialogs:
+    message: "The enemies are coming DO NOT LET THEM ENTER DEFENDER!!\r\n"
+    actionCode: 
+    type: 1
+    quest: 3
+  EndDialogs:
   - dialogName: 
-    message: The end is here
-    actionCode: 0
+    message: "I know we can trust you.\r\n"
+    actionCode: 
+    type: 0
     quest: 0
-  EndDialogs: []
+  - dialogName: 
+    message: "You\u2019re still the best warrior in this land.\r\n"
+    actionCode: 
+    type: 0
+    quest: 0
+  - dialogName: 
+    message: "Be great Defender, the destiny of the kingdom is in your hands...\r\n"
+    actionCode: 
+    type: 0
+    quest: 0
   enemies:
   - {fileID: 114115008924097054, guid: 2e0feb02178f6af448f1e48c2b698261, type: 2}
   - {fileID: 114620604490934646, guid: 538c5f171bae92142afe19f76cf58897, type: 2}
@@ -1298,7 +1323,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 323668617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.25, y: 0.21, z: 0}
+  m_LocalPosition: {x: -8.09, y: 0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3985,7 +4010,6 @@ GameObject:
   - component: {fileID: 1784493116}
   - component: {fileID: 1784493115}
   - component: {fileID: 1784493114}
-  - component: {fileID: 1784493117}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -4070,20 +4094,6 @@ Canvas:
   m_SortingLayerID: -1357145977
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1784493117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1784493112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14cefab2525664e49976719cb66728fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingCounter: {fileID: 1786140836}
-  moneyText: {fileID: 440943470}
-  gameOverText: {fileID: 430616897}
 --- !u!1 &1786140834
 GameObject:
   m_ObjectHideFlags: 0

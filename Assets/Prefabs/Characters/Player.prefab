@@ -181,7 +181,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1060707511090608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4, y: -0.246, z: 0}
+  m_LocalPosition: {x: -6.5, y: -0.246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4739378400005960}
@@ -443,8 +443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   characters:
-  - {fileID: 114447185114034176, guid: f0ea37b66c222e144aab812f25ffe1b2, type: 2}
   - {fileID: 114903279263768136, guid: 3d141d71b9662864aa856c1187c9081c, type: 2}
+  - {fileID: 114447185114034176, guid: f0ea37b66c222e144aab812f25ffe1b2, type: 2}
   - {fileID: 114575360277355698, guid: 0dd7418572322674aab845b419b730d4, type: 2}
   buildings:
   - {fileID: 114335955680026364, guid: c8cf9ebfa109dd148b4452abe8eb616c, type: 2}
@@ -465,6 +465,7 @@ MonoBehaviour:
   lifeText: {fileID: 0}
   defText: {fileID: 0}
   atkText: {fileID: 0}
+  offsetSpawn: -0.5
 --- !u!198 &198203263271105712
 ParticleSystem:
   m_ObjectHideFlags: 1

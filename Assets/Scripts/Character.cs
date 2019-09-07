@@ -39,7 +39,6 @@ public class Character : MonoBehaviour
 
     public float Atk { get { return atk; } }
 
-    private bool once = false;
     [SerializeField] IA iA;
     void Awake()
     {
@@ -72,8 +71,6 @@ public class Character : MonoBehaviour
     {
         if (CharacterType.Player != typeOfCharacter)
             ctr++;
-        else
-            animator.Play("Attack");
     }
     private void OnDestroy()
     {
@@ -88,14 +85,10 @@ public class Character : MonoBehaviour
     }
     private void Update()
     {
-
+        Debug.Log(player.Life);
         if (player.Life <= 0)
         {
-            if (!once)
-            {
-                once = true;
-                Death();
-            }
+            Death();
         }
         else
         {
@@ -159,7 +152,9 @@ public class Character : MonoBehaviour
         else
         {
             if (!attacking)
+            {
                 gameObject.SetActive(false);
+            }
         }
         isAlive = false;
         // animator.Play("Death");

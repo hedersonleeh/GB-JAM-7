@@ -14,7 +14,6 @@ public class TutoScript : MonoBehaviour
     [SerializeField] private Dialog[] BeginningDialogs;
     [SerializeField] private Dialog[] BattleDialogs;
     [SerializeField] private Dialog[] BuildDialogs;
-    [SerializeField] private Dialog[] AliesDialogs;
     [SerializeField] private Dialog[] EndDialogs;
     [SerializeField] private Enemy[] enemies;
     [SerializeField] private Buildings building;
@@ -69,6 +68,11 @@ public class TutoScript : MonoBehaviour
                     DialogActions();
                     break;
                 }
+                 case Phases.End:
+                {
+                    DialogActions();
+                    break;
+                }
         }
     }
 
@@ -86,7 +90,7 @@ public class TutoScript : MonoBehaviour
                     }
                     break;
                 case "Action":
-                    if (Input.GetKeyDown(GetActionCode()))
+                    if (Input.GetButtonDown(GetActionCode()))
                     {
                         NextDialog();
                     }
@@ -100,11 +104,11 @@ public class TutoScript : MonoBehaviour
                     }
                     else
                     {
-                        InitQuest(3);
+                        InitQuest(dialogs[currentDialogIndex].type,dialogs[currentDialogIndex].quest);
                     }
                     break;
                 case "ActivateMove":
-                    if (Input.GetKeyDown(GetActionCode()))
+                    if (Input.GetButtonDown(GetActionCode()))
                     {
                         NextDialog();
                         controller.Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -112,24 +116,23 @@ public class TutoScript : MonoBehaviour
                     break;
                 case "ActivateSelect":
                     builder.enabled = true;
-                    if (Input.GetKeyDown(GetActionCode()))
+                    if (Input.GetButtonDown(GetActionCode()))
                     {
                         NextDialog();
                     }
                     break;
                 case "Build":
-                    Debug.Log(building.name);
+                    Debug.Log(builder.currentNameOfObject);
 
-                    if (building.name == "Tower" && controller.Buttom_A && player.Interacting)
+                    if (builder.currentNameOfObject == "Tower" && controller.Buttom_A && player.Interacting)
                     {
                         Instantiate(building, new Vector2(SpawnAliesPos.position.x, building.transform.position.y), Quaternion.identity);
                         NextDialog();
                     }
                     break;
                 case "Alies":
-                    Debug.Log(character.name);
-
-                    if (character.name == "Warrior" && controller.Buttom_A && player.Interacting)
+                    Debug.Log(builder.currentNameOfObject);
+                    if (builder.currentNameOfObject == "Warrior" && controller.Buttom_A && player.Interacting)
                     {
                         Instantiate(character, new Vector2(SpawnAliesPos.position.x, building.transform.position.y), Quaternion.identity);
                         NextDialog();
@@ -145,12 +148,12 @@ public class TutoScript : MonoBehaviour
         NextDialogIndex();
     }
 
-    private void InitQuest(int amount)
+    private void InitQuest(EnemyType type,int amount)
     {
         if (canQuest)
         {
             canQuest = false;
-            SpawnEnemies(EnemyType.Skull, amount);
+            SpawnEnemies(type, amount);
         }
         else if (Enemy.ctr <= 0)
         {
@@ -164,8 +167,9 @@ public class TutoScript : MonoBehaviour
         return dialogs[currentDialogIndex].dialogName;
     }
 
-    private KeyCode GetActionCode()
+    private string GetActionCode()
     {
+        Debug.Log( dialogs[currentDialogIndex].actionCode);
         return dialogs[currentDialogIndex].actionCode;
     }
 
@@ -223,8 +227,8 @@ public class TutoScript : MonoBehaviour
             case Phases.Build:
                 dialogs = BuildDialogs;
                 break;
-            case Phases.Alies:
-                dialogs = AliesDialogs;
+            case Phases.End:
+                dialogs = EndDialogs;
                 break;
         }
     }

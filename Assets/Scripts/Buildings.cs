@@ -13,8 +13,6 @@ public class Buildings : MonoBehaviour
     [SerializeField] private int def;
     [SerializeField] private float atk;
     [SerializeField] private float attackSpeed;
-    public static Vector2 maxPos;
-    [SerializeField] private static Vector2 minPos;
     private bool attacking;
     private Animator animator;
     [SerializeField] private GameObject weaponPrefab;
@@ -36,8 +34,7 @@ public class Buildings : MonoBehaviour
 
     void Awake()
     {
-        maxPos = new Vector2(-10.45f, 0.18f);
-        minPos = new Vector2(-3.371f, 0.18f);
+      
         switch (type)
         {
             case BuildingType.House:
@@ -64,7 +61,8 @@ public class Buildings : MonoBehaviour
             ctr = 0;
         else
             ctr--;
-        FindObjectOfType<AudioManager>().Play("BuildingDead");
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("BuildingDead");
     }
     private void FixedUpdate()
     {
@@ -127,35 +125,8 @@ public class Buildings : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (type != BuildingType.Castle)
-        {
-            if (other.gameObject.CompareTag("Comprobator"))
-            {
-                float spaces;
-                spaces = other.bounds.size.x;
-                transform.position = new Vector2(transform.position.x + spaces, transform.position.y);
-                if (type == BuildingType.House)
-                    Destroy(gameObject);
-            }
-        }
-
-    }
-
     private void LateUpdate()
     {
-        if (type != BuildingType.Castle)
-        {
-            if (transform.position.x < maxPos.x)
-            {
-                Destroy(gameObject);
-            }
-            if (transform.position.x > minPos.x)
-            {
-                Destroy(gameObject);
-            }
-        }
         if (building.Life <= 0)
             if (!once)
             {

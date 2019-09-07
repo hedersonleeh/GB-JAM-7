@@ -17,6 +17,7 @@ public class Builder : MonoBehaviour
     [SerializeField] TMP_Text defText;
     [SerializeField] TMP_Text atkText;
     [SerializeField] float offsetSpawn;
+    [SerializeField] private float circleRadius;
 
     private int i = 0;
     private int characterCounter = 0;
@@ -25,9 +26,16 @@ public class Builder : MonoBehaviour
     private int ctr = 0;
     private bool pressedV;
     private bool pressedH;
+    private bool canBuild;
+    private Vector2 maxPos;
+    private Vector2 minPos;
+
+    public string currentNameOfObject { get; private set; }
     private void Start()
     {
         player.Interacting = false;
+        maxPos = new Vector2(-10.45f, 0.18f);
+        minPos = new Vector2(-3.371f, 0.18f);
     }
     private void Update()
     {
@@ -62,14 +70,12 @@ public class Builder : MonoBehaviour
                             buildingsText.text = string.Concat(buildings[buildingsCounter].name, " $",
                                                                 (buildingsCounter + 1) * 10);
 
-                            if (controller.Buttom_A && Buildings.ctr < 6 && Money.SpendMoney((buildingsCounter + 1) * 10))
+                            if (controller.Buttom_A && canBuild && Money.SpendMoney((buildingsCounter + 1) * 10))
                             {
-                                ctr = ctr + 1 >= objectsPos.Length ? 0 : ++ctr;
-                                float rnd = objectsPos[ctr].transform.position.x;
-
-                                Instantiate(buildings[buildingsCounter].gameObject,
-                                             new Vector2(rnd, buildings[buildingsCounter].transform.position.y),
-                                                        Quaternion.identity);
+                                Instantiate(buildings[buildingsCounter],
+                                                         new Vector2(transform.position.x,
+                                                          buildings[buildingsCounter].transform.position.y),
+                                                          Quaternion.identity);
                             }
                             break;
                         }
@@ -121,12 +127,14 @@ public class Builder : MonoBehaviour
         atkText.text = Mathf.RoundToInt(baseClass.Atk).ToString("D3");
         defText.text = Mathf.RoundToInt(baseClass.Def).ToString("D3");
         lifeText.text = Mathf.RoundToInt(baseClass.Life).ToString("D3");
+        currentNameOfObject = baseClass.name;
     }
     void UpdateText(Buildings baseClass)
     {
         atkText.text = Mathf.RoundToInt(baseClass.Atk).ToString("D3");
         defText.text = Mathf.RoundToInt(baseClass.Def).ToString("D3");
         lifeText.text = Mathf.RoundToInt(baseClass.Life).ToString("D3");
+        currentNameOfObject = baseClass.name;
     }
     private void PlayerInteract()
     {
@@ -139,6 +147,49 @@ public class Builder : MonoBehaviour
             player.Interacting = false;
         }
     }
+    private void LateUpdate()
+    {
+        CheckPosForBuild();
+    }
+
+    private void CheckPosForBuild()
+    {
+        if (transform.position.x < maxPos.x)
+        {
+            canBuild = false;
+        }
+        else if (transform.position.x > minPos.x)
+        {
+            canBuild = false;
+        }
+        else
+        {
+            canBuild = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        CheckIfCollidingWithOtherBuilding();
+    }
+
+    private void CheckIfCollidingWithOtherBuilding()
+    {
+        var hits = Physics2D.OverlapCircleAll(transform.position, circleRadius);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].GetComponent<Buildings>() != null)
+            {
+                canBuild = false;
+            }
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, circleRadius);
+    }
 }
+
 
 

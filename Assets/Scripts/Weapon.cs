@@ -23,20 +23,15 @@ public class Weapon : MonoBehaviour
         {
             case WeaponType.Bow:
                 {
-                    if (lifeTime <= 0)
+
+                    if (rb.position.y >= -.25f)
                     {
-                        Destroy(gameObject);
+                        if (rb.velocity.y > 0)
+                            transform.rotation = Quaternion.Euler(0, 0, -45);
+                        else if (rb.velocity.y < 0)
+                            transform.rotation = Quaternion.Euler(0, 0, 45);
                     }
-                    else
-                    {
-                        if (rb.position.y >= -.25f)
-                        {
-                            if (rb.velocity.y > 0)
-                                transform.rotation = Quaternion.Euler(0, 0, -45);
-                            else if (rb.velocity.y < 0)
-                                transform.rotation = Quaternion.Euler(0, 0, 45);
-                        }
-                    }
+
                     rb.gravityScale = .3f;
                     if (!once)
                     {
@@ -48,7 +43,6 @@ public class Weapon : MonoBehaviour
                             rb.AddForce(new Vector2(transform.right.x * -speed * 10 * Time.deltaTime, Vector2.up.y * 10 * speed * Time.deltaTime));
                         }
                     }
-                    lifeTime -= Time.deltaTime;
                     break;
                 }
             case WeaponType.Axe:
@@ -64,10 +58,8 @@ public class Weapon : MonoBehaviour
         {
             case WeaponType.Bow:
                 {
-                    if (other.gameObject.CompareTag("Enemy"))
-                    {
-                        Destroy(gameObject);
-                    }
+                    //    if (other.gameObject.GetComponent<Enemy>() != null)
+                    Destroy(gameObject);
                     break;
                 }
             case WeaponType.Axe:

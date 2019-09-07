@@ -10,7 +10,7 @@ public class SpawnScript : MonoBehaviour
     [SerializeField] Enemy[] wave3;
     [SerializeField] Enemy[] wave4;
     private static int round = 0;
-    private int EnemiesPerWave = 5;
+    private int enemiesPerWave = 5;
     [SerializeField] private float timesPerSpawn;
     private float timer = 0;
     bool canAdd = true;
@@ -23,6 +23,7 @@ public class SpawnScript : MonoBehaviour
         get { return round; }
     }
 
+    public int EnemiesPerWave { get { return enemiesPerWave; } }
     void Start()
     {
         FindObjectOfType<AudioManager>().Play("Theme");
@@ -110,7 +111,7 @@ public class SpawnScript : MonoBehaviour
     }
     private void Spawn(Enemy[] wave)
     {
-        if (EnemiesPerWave <= Enemy.ctr)
+        if (enemiesPerWave <= Enemy.ctr)
         {
             canAdd = false;
         }
@@ -123,7 +124,7 @@ public class SpawnScript : MonoBehaviour
     }
     private void Spawn(Enemy wave)
     {
-        if (EnemiesPerWave <= Enemy.ctr)
+        if (enemiesPerWave <= Enemy.ctr)
         {
             canAdd = false;
         }
@@ -136,7 +137,7 @@ public class SpawnScript : MonoBehaviour
     void NextWave()
     {
         FindObjectOfType<AudioManager>().Play("Win");
-        EnemiesPerWave += round;
+        enemiesPerWave += round;
         round++;
         roundBegin = false;
         canAdd = true;

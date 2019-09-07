@@ -60,10 +60,6 @@ public class MenuScript : MonoBehaviour
                 }
             case 1:
                 {
-                    Debug.Log(paletteOpcions.Length);
-                    Debug.Log(j - 1 + " =j - 1");
-                    Debug.Log(j - 1 <= 0);
-
                     if (controller.Horizontal < 0 && !pressed)
                     {
                         j = j - 1 < 0 ? paletteOpcions.Length - 1 : --j;
