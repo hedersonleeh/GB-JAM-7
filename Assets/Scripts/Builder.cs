@@ -20,13 +20,11 @@ public class Builder : MonoBehaviour
 
     private int i = 0;
     private int characterCounter = 0;
-    
+
     private int buildingsCounter = 0;
     private int ctr = 0;
-    private bool once = false;
     private bool pressedV;
     private bool pressedH;
-
     private void Start()
     {
         player.Interacting = false;
@@ -49,11 +47,11 @@ public class Builder : MonoBehaviour
                             UpdateText(characters[characterCounter]);
                             charactersText.text = string.Concat(characters[characterCounter].name + " $",
                                                                  (characterCounter + 1) * 10);
-
                             if (controller.Buttom_A && Money.SpendMoney((characterCounter + 1) * 10))
                             {
-                                Vector3 offset = new Vector3(transform.position.x-offsetSpawn,transform.position.y,0);
-                                Instantiate(characters[characterCounter].gameObject,offset,Quaternion.identity);
+                                Vector3 offset = new Vector3(transform.position.x - offsetSpawn, transform.position.y, 0);
+                                Instantiate(characters[characterCounter].gameObject, offset, Quaternion.identity);
+
                             }
                             break;
                         }

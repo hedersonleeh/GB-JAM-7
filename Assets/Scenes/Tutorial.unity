@@ -113,6 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &59351446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114933840426502492, guid: 8b70c93a12497da4f98f2ef5eea4a122,
+    type: 2}
+  m_PrefabInternal: {fileID: 117716733}
+  m_Script: {fileID: 11500000, guid: ef703c3397ef17747b6706ee327431da, type: 3}
 --- !u!21 &62994672
 Material:
   serializedVersion: 6
@@ -520,7 +526,17 @@ Prefab:
     - target: {fileID: 114620787404036930, guid: 8b70c93a12497da4f98f2ef5eea4a122,
         type: 2}
       propertyPath: def
-      value: 100
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114933840426502492, guid: 8b70c93a12497da4f98f2ef5eea4a122,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114620787404036930, guid: 8b70c93a12497da4f98f2ef5eea4a122,
+        type: 2}
+      propertyPath: life
+      value: 1000000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b70c93a12497da4f98f2ef5eea4a122, type: 2}
@@ -688,11 +704,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -787,7 +803,7 @@ Transform:
   m_Children:
   - {fileID: 1772004667}
   m_Father: {fileID: 1459776155}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &265753476
 GameObject:
@@ -920,11 +936,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1194,44 +1210,86 @@ MonoBehaviour:
   phase: 0
   controller: {fileID: 1295784637}
   player: {fileID: 1782060912}
+  builder: {fileID: 59351446}
   showedText: {fileID: 1532633764}
   BeginningDialogs:
-  - Dialogname: Action
+  - dialogName: 
     message: Press B to continue
-    actionCode: 98
-  - Dialogname: Initial
+    actionCode: 120
+    quest: 0
+  - dialogName: 
     message: Welcome Back Defender
     actionCode: 0
-  - Dialogname: Question
+    quest: 0
+  - dialogName: 
     message: Have you remember how to fight?
     actionCode: 0
-  - Dialogname: Final
-    message: I will Show You
+    quest: 0
+  - dialogName: 
+    message: I will show You
     actionCode: 0
+    quest: 0
   BattleDialogs:
-  - Dialogname: Move
-    message: Move with Arrows
+  - dialogName: ActivateMove
+    message: Move To right with Arrow
+    actionCode: 275
+    quest: 0
+  - dialogName: Action
+    message: Move To Left with Arrow
+    actionCode: 276
+    quest: 0
+  - dialogName: 
+    message: Nice! Now you know to move (you can move with WASD).
     actionCode: 0
-  - Dialogname: Press A
-    message: Press Buttom A To attack
+    quest: 0
+  - dialogName: Action
+    message: Press A to attack!
+    actionCode: 122
+    quest: 0
+  - dialogName: Quest
+    message: Kill those enemies
     actionCode: 0
-  - Dialogname: Advice
-    message: Try to Attack and Kite Back
-    actionCode: 0
-  - Dialogname: Kill
-    message: Kill These Enemies
-    actionCode: 0
+    quest: 3
   BuildDialogs:
-  - Dialogname: Open Options
-    message: Press Select to open Command Panel
+  - dialogName: ActivateSelect
+    message: Press SELECT to open Command Panel
+    actionCode: 99
+    quest: 0
+  - dialogName: 
+    message: Now you can Build or call Alies with money
+    actionCode: 99
+    quest: 0
+  - dialogName: 
+    message: We need to defend the next Wave!
+    actionCode: 122
+    quest: 0
+  - dialogName: Build
+    message: Build a Tower
+    actionCode: 122
+    quest: 0
+  - dialogName: Alies
+    message: Call a Warrior
+    actionCode: 122
+    quest: 0
+  - dialogName: Quest
+    message: Beat the Wave
+    actionCode: 122
+    quest: 20
+  AliesDialogs:
+  - dialogName: 
+    message: The end is here
     actionCode: 0
-  AliesDialogs: []
+    quest: 0
   EndDialogs: []
   enemies:
   - {fileID: 114115008924097054, guid: 2e0feb02178f6af448f1e48c2b698261, type: 2}
   - {fileID: 114620604490934646, guid: 538c5f171bae92142afe19f76cf58897, type: 2}
   - {fileID: 114461473070378702, guid: f8dcae2e316f547439f608728f58541c, type: 2}
   - {fileID: 114673616148703534, guid: 232e145ce39915740a5cecaa7692f398, type: 2}
+  building: {fileID: 114335955680026364, guid: c8cf9ebfa109dd148b4452abe8eb616c, type: 2}
+  SpawnAliesPos: {fileID: 616095919}
+  character: {fileID: 114903279263768136, guid: 3d141d71b9662864aa856c1187c9081c,
+    type: 2}
   typingSpeed: 0.02
 --- !u!4 &323668619
 Transform:
@@ -1889,11 +1947,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2167,7 +2225,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 616095918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.459775, y: -0.025160909, z: 44.95}
+  m_LocalPosition: {x: -7.19, y: -0.025160909, z: 44.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2859,7 +2917,7 @@ Transform:
   - {fileID: 583478584}
   - {fileID: 1756486367}
   m_Father: {fileID: 1459776155}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1179225682
 GameObject:
@@ -3168,7 +3226,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -4.7, y: -0.1}
+  m_Offset: {x: -5.57, y: -0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3343,8 +3401,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 264148470}
   - {fileID: 1079555052}
+  - {fileID: 264148470}
   - {fileID: 1731452542}
   - {fileID: 177764881}
   m_Father: {fileID: 0}
@@ -3481,11 +3539,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4538,6 +4596,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224884204880826904, guid: c8cf9ebfa109dd148b4452abe8eb616c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.144
+      objectReference: {fileID: 0}
+    - target: {fileID: 224884204880826904, guid: c8cf9ebfa109dd148b4452abe8eb616c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.098
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8cf9ebfa109dd148b4452abe8eb616c, type: 2}
   m_IsPrefabAsset: 0
@@ -4762,11 +4830,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

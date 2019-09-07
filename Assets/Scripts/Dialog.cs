@@ -1,18 +1,20 @@
 
-
 using UnityEngine;
-
 [System.Serializable]
 public class Dialog
 {
-    public string Dialogname;
+    public string dialogName;
     [TextArea] public string message;
+    public KeyCode actionCode;
+    public int quest;
 
     public Dialog()
     {
-    }public Dialog(string message)
+    }
+    public Dialog(string message)
     {
         this.message = message;
     }
-    public KeyCode actionCode;
+
+
 }

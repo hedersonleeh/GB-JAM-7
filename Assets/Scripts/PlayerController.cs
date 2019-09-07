@@ -21,9 +21,22 @@ public class PlayerController : MonoBehaviour
     public bool Buttom_Start { get; private set; }
     public bool Buttom_Select { get; private set; }
 
-    void Start()
+    public Rigidbody2D Rb
     {
-        rb = GetComponent<Rigidbody2D>();
+        get
+        {
+            return rb;
+        }
+
+        set
+        {
+            rb = value;
+        }
+    }
+
+    void Awake()
+    {
+        Rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -36,8 +49,8 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector2 targetVelocity = new Vector2(Horizontal * moveSpeed * Time.deltaTime, rb.velocity.y);
-        rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothDamp);
+        Vector2 targetVelocity = new Vector2(Horizontal * moveSpeed * Time.deltaTime, Rb.velocity.y);
+        Rb.velocity = Vector2.SmoothDamp(Rb.velocity, targetVelocity, ref velocity, smoothDamp);
 
         if (Horizontal < 0 && facingRight)
             Flip();

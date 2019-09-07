@@ -29,7 +29,6 @@ public class Character : MonoBehaviour
         set { interacting = value; }
     }
     public bool isAlive { get; set; }
-
     public BaseClass Stacs { get { return player; } }
     public PlayerController Controller { get { return controller; } }
 
@@ -39,6 +38,7 @@ public class Character : MonoBehaviour
     public int Def { get { return def; } }
 
     public float Atk { get { return atk; } }
+
     private bool once = false;
     [SerializeField] IA iA;
     void Awake()
@@ -88,6 +88,7 @@ public class Character : MonoBehaviour
     }
     private void Update()
     {
+
         if (player.Life <= 0)
         {
             if (!once)
