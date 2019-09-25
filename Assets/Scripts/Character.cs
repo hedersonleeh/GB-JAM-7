@@ -20,6 +20,7 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject weaponPrefab;
     [SerializeField] private ParticleSystem magicWeapon;
     [SerializeField] private Transform LaunchPos;
+    [SerializeField] private int price;
     private Rigidbody2D rb;
     private bool attacking;
     private bool interacting = false;
@@ -38,6 +39,8 @@ public class Character : MonoBehaviour
     public int Def { get { return def; } }
 
     public float Atk { get { return atk; } }
+
+    public int Price { get { return price; } }
 
     [SerializeField] IA iA;
     void Awake()
@@ -85,7 +88,6 @@ public class Character : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(player.Life);
         if (player.Life <= 0)
         {
             Death();

@@ -1,17 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
-
 public class Resolution : MonoBehaviour
 {
 
-    // Use this for initialization
-    /* 		void Awake () {
-            Screen.SetResolution(160*4,144*4,false);
+    [SerializeField] private Vector2Int mainResolution;
+    private int i;
+    public static Vector2Int currentResolution;
+    void Awake()
+    {
+
+        DontDestroyOnLoad(gameObject);
+        currentResolution = mainResolution;
+        Screen.SetResolution(mainResolution.x, mainResolution.y, false);
+        i = 2;
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Resolution"))
+        {
+            if (i > 3)
+            {
+                i = 1;
+                currentResolution = mainResolution;
+            }
+            Screen.SetResolution(currentResolution.x * Mathf.Clamp(i, 1, 4), currentResolution.y * Mathf.Clamp(i, 1, 4), false);
+            i++;
         }
-
-        // Update is called once per frame
-        void Update () {
-
-        }*/
+    }
 }

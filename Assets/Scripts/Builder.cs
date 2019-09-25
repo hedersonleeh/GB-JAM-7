@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Builder : MonoBehaviour
 {
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject commandPanel;
     [SerializeField] private Character[] characters;
     [SerializeField] private Buildings[] buildings;
     [SerializeField] private Transform[] objectsPos;
@@ -16,33 +16,25 @@ public class Builder : MonoBehaviour
     [SerializeField] TMP_Text lifeText;
     [SerializeField] TMP_Text defText;
     [SerializeField] TMP_Text atkText;
-    [SerializeField] float offsetSpawn;
-    [SerializeField] private float circleRadius;
+
 
     private int i = 0;
     private int characterCounter = 0;
 
     private int buildingsCounter = 0;
-    private int ctr = 0;
     private bool pressedV;
     private bool pressedH;
-    private bool canBuild;
-    private Vector2 maxPos;
-    private Vector2 minPos;
 
     public string currentNameOfObject { get; private set; }
     private void Start()
     {
         player.Interacting = false;
-        maxPos = new Vector2(-10.45f, 0.18f);
-        minPos = new Vector2(-3.371f, 0.18f);
     }
     private void Update()
     {
         if (controller != null)
         {
             PlayerInteract();
-            canvas.gameObject.SetActive(player.Interacting);
 
             if (player.Interacting)
             {
@@ -54,10 +46,10 @@ public class Builder : MonoBehaviour
                             MoveInHorizontal(characters, ref characterCounter);
                             UpdateText(characters[characterCounter]);
                             charactersText.text = string.Concat(characters[characterCounter].name + " $",
-                                                                 (characterCounter + 1) * 10);
-                            if (controller.Buttom_A && Money.SpendMoney((characterCounter + 1) * 10))
+                                                                 (characters[characterCounter].Price));
+                            if (controller.Buttom_A && Money.SpendMoney(characters[characterCounter].Price))
                             {
-                                Vector3 offset = new Vector3(transform.position.x - offsetSpawn, transform.position.y, 0);
+                                Vector3 offset = new Vector3(transform.position.x, transform.position.y, 0);
                                 Instantiate(characters[characterCounter].gameObject, offset, Quaternion.identity);
 
                             }
@@ -68,9 +60,8 @@ public class Builder : MonoBehaviour
                             MoveInHorizontal(buildings, ref buildingsCounter);
                             UpdateText(buildings[buildingsCounter]);
                             buildingsText.text = string.Concat(buildings[buildingsCounter].name, " $",
-                                                                (buildingsCounter + 1) * 10);
-
-                            if (controller.Buttom_A && canBuild && Money.SpendMoney((buildingsCounter + 1) * 10))
+                                                                (buildings[buildingsCounter].BuildingPrice));
+                            if (controller.Buttom_A && ChecksBuildings.CanBuild && Money.SpendMoney(buildings[buildingsCounter].BuildingPrice))
                             {
                                 Instantiate(buildings[buildingsCounter],
                                                          new Vector2(transform.position.x,
@@ -119,9 +110,8 @@ public class Builder : MonoBehaviour
             pressedV = false;
         }
         pointer.transform.position = uiOptions[i].transform.position;
-
     }
-
+    
     void UpdateText(Character baseClass)
     {
         atkText.text = Mathf.RoundToInt(baseClass.Atk).ToString("D3");
@@ -146,50 +136,8 @@ public class Builder : MonoBehaviour
         {
             player.Interacting = false;
         }
-    }
-    private void LateUpdate()
-    {
-        CheckPosForBuild();
-    }
+        commandPanel.SetActive(player.Interacting);
 
-    private void CheckPosForBuild()
-    {
-        if (transform.position.x < maxPos.x)
-        {
-            canBuild = false;
-        }
-        else if (transform.position.x > minPos.x)
-        {
-            canBuild = false;
-        }
-        else
-        {
-            canBuild = true;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        CheckIfCollidingWithOtherBuilding();
-    }
-
-    private void CheckIfCollidingWithOtherBuilding()
-    {
-        var hits = Physics2D.OverlapCircleAll(transform.position, circleRadius);
-        for (int i = 0; i < hits.Length; i++)
-        {
-            if (hits[i].GetComponent<Buildings>() != null)
-            {
-                canBuild = false;
-            }
-        }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, circleRadius);
     }
 }
-
-
 

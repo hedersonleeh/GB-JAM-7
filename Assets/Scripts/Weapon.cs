@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
 
     Rigidbody2D rb;
     [SerializeField] WeaponType types;
-    [SerializeField] float lifeTime = 2f;
     [SerializeField] float speed = 2f;
 
     private bool once = false;

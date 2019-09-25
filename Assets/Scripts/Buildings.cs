@@ -13,6 +13,7 @@ public class Buildings : MonoBehaviour
     [SerializeField] private int def;
     [SerializeField] private float atk;
     [SerializeField] private float attackSpeed;
+    [SerializeField] private int buildingPrice;
     private bool attacking;
     private Animator animator;
     [SerializeField] private GameObject weaponPrefab;
@@ -29,12 +30,13 @@ public class Buildings : MonoBehaviour
     public int Def { get { return def; } }
     public float Atk { get { return atk; } }
 
+    public int BuildingPrice { get { return buildingPrice; } }
     RaycastHit2D ray;
     private bool once = false;
 
     void Awake()
     {
-      
+
         switch (type)
         {
             case BuildingType.House:

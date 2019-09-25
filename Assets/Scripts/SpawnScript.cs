@@ -12,12 +12,8 @@ public class SpawnScript : MonoBehaviour
     private static int round = 0;
     private int enemiesPerWave = 5;
     [SerializeField] private float timesPerSpawn;
-    private float timer = 0;
     bool canAdd = true;
-
-
     private bool roundBegin;
-
     public static int Round
     {
         get { return round; }
@@ -27,8 +23,6 @@ public class SpawnScript : MonoBehaviour
     void Start()
     {
         FindObjectOfType<AudioManager>().Play("Theme");
-
-
         round = 1;
         roundBegin = false;
     }
@@ -36,108 +30,95 @@ public class SpawnScript : MonoBehaviour
     // Update is called once per frame	
     void Update()
     {
-        bool canSpawn = Enemy.ctr != 0 && canAdd || !roundBegin;
-        if (timer <= 0)
+        bool Spawning = Enemy.ctr != 0 && canAdd || !roundBegin;
+        switch (round)
         {
-            switch (round)
-            {
-
-                case 1:
-                    if (canSpawn)
+            case 1:
+                if (Spawning)
+                {
+                    StartCoroutine(Spawn(wave1));
+                }
+                else if (Enemy.ctr <= 0)
+                {
+                    NextWave();
+                }
+                break;
+            case 2:
+                {
+                    if (Spawning)
                     {
-                        Spawn(wave1);
+                        StartCoroutine(Spawn(wave1));
                     }
                     else if (Enemy.ctr <= 0)
                     {
                         NextWave();
                     }
                     break;
-                case 2:
+                }
+            case 3:
+                {
+                    if (Spawning)
                     {
-                        if (canSpawn)
-                        {
-                            Spawn(wave1);
-                        }
-                        else if (Enemy.ctr <= 0)
-                        {
-                            NextWave();
-                        }
-                        break;
+                        StartCoroutine(Spawn(wave2));
                     }
-                case 3:
+                    else if (Enemy.ctr <= 0)
                     {
-                        if (canSpawn)
-                        {
-                            Spawn(wave2);
-                        }
-                        else if (Enemy.ctr <= 0)
-                        {
-                            NextWave();
-                        }
-                        break;
+                        NextWave();
                     }
-                case 5:
-                case 4:
+                    break;
+                }
+            case 5:
+            case 4:
+                {
+                    if (Spawning)
                     {
-                        if (canSpawn)
-                        {
-                            Spawn(wave3);
-                        }
-                        else if (Enemy.ctr <= 0)
-                        {
-                            NextWave();
-                        }
-                        break;
+                        StartCoroutine(Spawn(wave3));
                     }
-                default:
+                    else if (Enemy.ctr <= 0)
                     {
-                        if (canSpawn)
-                        {
-                            Spawn(wave4);
-                        }
-                        else if (Enemy.ctr <= 0)
-                        {
-                            NextWave();
-                        }
-                        break;
+                        NextWave();
                     }
-            }
-            timer = timesPerSpawn;
-        }
-        else
-        {
-            timer -= Time.deltaTime;
+                    break;
+                }
+            default:
+                {
+                    if (Spawning)
+                    {
+                        StartCoroutine(Spawn(wave4));
+                    }
+                    else if (Enemy.ctr <= 0)
+                    {
+                        NextWave();
+                    }
+                    break;
+                }
         }
     }
-    private void Spawn(Enemy[] wave)
+    IEnumerator Spawn(Enemy enemy)
     {
-        if (enemiesPerWave <= Enemy.ctr)
+        roundBegin = true;
+         canAdd = false;
+        for (int i = 0; i < enemiesPerWave; i++)
         {
-            canAdd = false;
-        }
-        else
-        {
-            int rnd = Random.Range(0, wave.Length);
-            Instantiate(wave[rnd], new Vector2(transform.position.x, wave[rnd].transform.position.y), Quaternion.identity);
-            roundBegin = true;
+            Instantiate(enemy, new Vector2(transform.position.x, enemy.transform.position.y), Quaternion.identity);
+            yield return new WaitForSeconds(timesPerSpawn);
         }
     }
-    private void Spawn(Enemy wave)
+     IEnumerator Spawn(Enemy[] enemy)
     {
-        if (enemiesPerWave <= Enemy.ctr)
+        roundBegin = true;
+         canAdd = false;
+        for (int i = 0; i < enemiesPerWave; i++)
         {
-            canAdd = false;
-        }
-        else
-        {
-            Instantiate(wave, new Vector2(transform.position.x, wave.transform.position.y), Quaternion.identity);
-            roundBegin = true;
+            int rnd = Random.Range(0,enemy.Length);
+            Instantiate(enemy[rnd], new Vector2(transform.position.x, enemy[rnd].transform.position.y), Quaternion.identity);
+            yield return new WaitForSeconds(timesPerSpawn);
         }
     }
     void NextWave()
     {
         FindObjectOfType<AudioManager>().Play("Win");
-        enemiesPerWave += round;
+        enemiesPerWave += 2;
         round++;
         roundBegin = false;
         canAdd = true;
